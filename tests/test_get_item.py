@@ -10,7 +10,6 @@ def test_wildcard():
     item_col = GetItem([target])
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 11
     assert HOME.joinpath('file1.txt') in result
     assert HOME.joinpath('other') in result
 
@@ -19,7 +18,6 @@ def test_recurse():
     item_col = GetItem([target], recurse = True)
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 28
     assert HOME in result
     assert HOME.joinpath('other') in result
     assert HOME.joinpath('other/other2/ofile1.txt') in result
@@ -29,7 +27,6 @@ def test_recurse_with_depth():
     item_col = GetItem([target], recurse = True, depth = 2)
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 23
     assert HOME.joinpath('other/other2') in result
     assert HOME.joinpath('other/other2/ofile1.txt') not in result
 
@@ -38,7 +35,6 @@ def test_exclude_md():
     item_col = GetItem([target], exclude = ["*.md"])
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 6
     assert HOME.joinpath('other') in result
     assert HOME.joinpath('file1.md') not in result
 
@@ -47,7 +43,6 @@ def test_include_txt():
     item_col = GetItem([target], include = ["*.txt"])
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 5
     assert HOME.joinpath('file3.txt') in result
     assert HOME.joinpath('other') not in result
     assert HOME.joinpath('file1.md') not in result
@@ -57,7 +52,6 @@ def test_ignore_dir():
     item_col = GetItem([target], ignore_dir = True)
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 10
     assert HOME.joinpath('file3.txt') in result
     assert HOME.joinpath('file1.md') in result
     assert HOME.joinpath('other') not in result
@@ -67,7 +61,6 @@ def test_ignore_file():
     item_col = GetItem([target], ignore_file = True)
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 1
     assert HOME.joinpath('other') in result
     assert HOME.joinpath('file3.txt') not in result
     assert HOME.joinpath('file1.md') not in result

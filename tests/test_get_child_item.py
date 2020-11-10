@@ -10,7 +10,6 @@ def test_wildcard():
     item_col = GetChildItem([target])
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 11
     assert HOME.joinpath('other/other2') in result
     assert HOME.joinpath('other') not in result
     assert HOME.joinpath('file1.txt') not in result
@@ -20,7 +19,6 @@ def test_recurse():
     item_col = GetChildItem([target], recurse = True)
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 27
     assert HOME.joinpath('other') in result
     assert HOME.joinpath('other/other2/ofile1.txt') in result
     assert HOME not in result
@@ -30,7 +28,6 @@ def test_recurse_with_depth():
     item_col = GetChildItem([target], recurse = True, depth = 2)
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 27
     assert HOME.joinpath('other/other2') in result
     assert HOME.joinpath('other/other2/ofile1.txt') in result
     assert HOME not in result
@@ -40,7 +37,6 @@ def test_exclude_md():
     item_col = GetChildItem([target], exclude = ["*.md"])
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 6
     assert HOME.joinpath('other') in result
     assert HOME.joinpath('file1.md') not in result
 
@@ -49,7 +45,6 @@ def test_include_txt():
     item_col = GetChildItem([target], include = ["*.txt"])
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 5
     assert HOME.joinpath('file3.txt') in result
     assert HOME.joinpath('other') not in result
     assert HOME.joinpath('file1.md') not in result
@@ -59,7 +54,6 @@ def test_ignore_dir():
     item_col = GetChildItem([target], ignore_dir = True)
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 10
     assert HOME.joinpath('file3.txt') in result
     assert HOME.joinpath('file1.md') in result
     assert HOME.joinpath('other') not in result
@@ -69,7 +63,6 @@ def test_ignore_file():
     item_col = GetChildItem([target], ignore_file = True)
     result = [ item for item in item_col.collect() ]
 
-    assert len(result) == 1
     assert HOME.joinpath('other') in result
     assert HOME.joinpath('file3.txt') not in result
     assert HOME.joinpath('file1.md') not in result
