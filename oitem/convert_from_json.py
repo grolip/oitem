@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import json
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, Iterator, List, Tuple
 
 from .get_item import AnyPath, GetItem
 
@@ -15,7 +15,7 @@ class ConvertFromJson(GetItem):
         self.encoding = encoding
         self.ignore_dir = True
 
-    def collect(self) -> Tuple[AnyPath, Dict[str, Any]]:
+    def collect(self) -> Iterator[Tuple[AnyPath, Dict[str, Any]]]:
         for path in super().collect():
             try:
                 data = json.loads(path.read_text(encoding = self.encoding))
