@@ -38,6 +38,9 @@ class HashContent(GetItem):
         for path in super().collect():
             hash_obj = hashlib.new(self.algorithm)
 
-            for block in self.read_blocks(path):
-                hash_obj.update(block)
-            yield (path, hash_obj.hexdigest())
+            try:
+                for block in self.read_blocks(path):
+                    hash_obj.update(block)
+                yield (path, hash_obj.hexdigest())
+            except PermissionError:
+                pass
