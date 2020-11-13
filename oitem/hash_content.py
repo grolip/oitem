@@ -39,5 +39,5 @@ class HashContent(GetItem):
                 for block in self.read_blocks(path):
                     hash_obj.update(block)
                 yield (path, hash_obj.hexdigest())
-            except PermissionError:
+            except (PermissionError, UnicodeDecodeError):
                 pass

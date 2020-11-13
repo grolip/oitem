@@ -115,5 +115,5 @@ class GetContent(GetItem):
         for path in super().collect():
             try:
                 yield (path, read_lines(path))
-            except PermissionError:
+            except (PermissionError, UnicodeDecodeError):
                 pass
