@@ -20,5 +20,5 @@ class ConvertFromJson(GetItem):
             try:
                 data = json.loads(path.read_text(encoding = self.encoding))
                 yield (path, data)
-            except (UnicodeDecodeError, json.JSONDecodeError):
+            except (PermissionError, UnicodeDecodeError, json.JSONDecodeError):
                 pass
