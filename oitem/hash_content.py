@@ -3,6 +3,7 @@ import hashlib
 from typing import Iterator, List, Set, Tuple
 
 from .get_item import AnyPath, GetItem
+from .get_content import get_block_size
 
 class HashContent(GetItem):
     def __init__(self, 
@@ -19,13 +20,9 @@ class HashContent(GetItem):
         """Alias pour hashlib.algorithms_available"""
         return hashlib.algorithms_available
 
-    def get_block_size(self, path: AnyPath) -> int:
-        """Connaître la taille maximale de données à lire en une fois"""
-        return getattr(path.stat(), "blk_size", 4096)
-
     def read_blocks(self, path: AnyPath) -> Iterator[bytes]:
         """Lire un fichier block par block pour préserver la mémoire"""
-        block_size = self.get_block_size(path)
+        block_size = get_block_size(path)
         data_size = -1
 
         with path.open("rb") as fd:
